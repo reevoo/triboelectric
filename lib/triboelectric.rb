@@ -1,5 +1,5 @@
 require "triboelectric/version"
+require "triboelectric/static"
 
 module Triboelectric
-  # Your code goes here...
 end

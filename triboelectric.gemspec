@@ -1,7 +1,7 @@
 # coding: utf-8
-lib = File.expand_path('../lib', __FILE__)
+lib = File.expand_path("../lib", __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'triboelectric/version'
+require "triboelectric/version"
 
 Gem::Specification.new do |spec|
   spec.name          = "triboelectric"
@@ -9,7 +9,7 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Ed Robinson"]
   spec.email         = ["ed@reevoo.com"]
 
-  spec.summary       = %q{Manage assets across rolling deploys}
+  spec.summary       = "Manage assets across rolling deploys"
   spec.homepage      = "https://github.com/reevoo/triboelectric"
   spec.license       = "MIT"
 
@@ -20,4 +20,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "bundler", "~> 1.14"
   spec.add_development_dependency "rake", "~> 10.0"
   spec.add_development_dependency "rspec", "~> 3.0"
+  spec.add_development_dependency "bundler-audit", "~> 0.5"
+  spec.add_development_dependency "simplecov", "~> 0.12"
+  spec.add_development_dependency "reevoocop"
 end
