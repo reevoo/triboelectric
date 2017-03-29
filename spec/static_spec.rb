@@ -135,6 +135,7 @@ RSpec.describe Triboelectric::Static do
             ),
           ),
           index: "index.html",
+          upload: false,
         }
       end
 
@@ -171,6 +172,7 @@ RSpec.describe Triboelectric::Static do
             get: bar,
           ),
         ),
+        upload: false,
       }
     end
 
@@ -214,6 +216,7 @@ RSpec.describe Triboelectric::Static do
         header_rules: [
           [:all, { "Cache-Control" => "max-age=31536000, public" }],
         ],
+        upload: false,
       }
     end
 

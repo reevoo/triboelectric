@@ -67,6 +67,9 @@ RSpec.describe Triboelectric::Uploader do
     let(:bucket) { double(:bucket) }
 
     it "uploads the file to the bucket" do
+      allow(bucket).to receive(:object)
+        .and_return(double(:object, exists?: false))
+
       expect(bucket).to receive(:put_object) do |args|
         expect(args[:key]).to eq "spec/fixture/assets/foo.css"
         expect(args[:body].read).to eq "h1 { color: red }\n"
@@ -84,6 +87,36 @@ RSpec.describe Triboelectric::Uploader do
       end
 
       it "does nothing" do
+        subject.upload
+      end
+    end
+
+    context "if files allready exist" do
+      let(:options) do
+        {
+          urls: {
+            "/" => "spec/fixture/index.html",
+            "/assets" => "spec/fixture/assets",
+          },
+          bucket: bucket,
+        }
+      end
+
+      it "only uploads the file that is not found on the bucket" do
+        allow(bucket).to receive(:object)
+          .with("spec/fixture/index.html")
+          .and_return(double(:object, exists?: true))
+
+        allow(bucket).to receive(:object)
+          .with("spec/fixture/assets/foo.css")
+          .and_return(double(:object, exists?: false))
+
+        expect(bucket).to receive(:put_object) do |args|
+          expect(args[:key]).to eq "spec/fixture/assets/foo.css"
+          expect(args[:body].read).to eq "h1 { color: red }\n"
+          expect(args[:content_type]).to eq "text/css"
+        end.once
+
         subject.upload
       end
     end

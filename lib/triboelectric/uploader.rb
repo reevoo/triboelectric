@@ -16,6 +16,7 @@ module Triboelectric
       return unless @bucket
       return if %w(development test).include? ENV["RACK_ENV"]
       files.each do |file|
+        next if @bucket.object(file).exists?
         @bucket.put_object(
           key: file,
           body: File.open(file, "r"),
