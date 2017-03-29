@@ -31,7 +31,11 @@ module Triboelectric
       return unless @bucket
       return unless status == 404
       path = env[Rack::PATH_INFO]
-      path = File.join(@root, path) if @root
+      if @root
+        path = File.join(@root, path)
+      else
+        path = path.sub(/^\//, "")
+      end
       object = @bucket.object(path)
       return unless object.exists?
       object.get

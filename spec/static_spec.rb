@@ -125,8 +125,7 @@ RSpec.describe Triboelectric::Static do
     describe "from s3" do
       let(:options) do
         {
-          urls: %w(/assets),
-          root: "spec/fixture",
+          urls: %w(/spec/fixture/assets),
           bucket: DummyBucket.new(
             "spec/fixture/assets/index.html" => double(
               :s3_object,
@@ -149,7 +148,7 @@ RSpec.describe Triboelectric::Static do
       end
 
       it "serves the index from s3" do
-        res = request.get("/assets/")
+        res = request.get("/spec/fixture/assets/")
         expect(res).to be_ok
         expect(res.content_type).to eq "text/html"
         expect(res.body).to eq "<h1>S3 Index</h1>\n"
