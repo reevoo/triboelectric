@@ -239,6 +239,22 @@ RSpec.describe Triboelectric::Static do
     end
   end
 
+  describe "uploading" do
+    let(:options) do
+      {
+        urls: %w(/assets),
+        root: "spec/fixture",
+        bucket: bucket,
+      }
+    end
+    let(:bucket) { double(:bucket) }
+
+    it "uploads the files on startup" do
+      expect(Triboelectric::Uploader).to receive(:upload).with(options)
+      setup_app(options)
+    end
+  end
+
   class DummyApp
     def call(_env)
       [200, { "Content-Type" => "text/plain" }, ["Hello From The App"]]
@@ -256,6 +272,9 @@ RSpec.describe Triboelectric::Static do
 
     def object(path)
       @mocks[path]
+    end
+
+    def put_object(*_args)
     end
   end
 end

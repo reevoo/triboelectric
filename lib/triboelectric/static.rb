@@ -3,6 +3,7 @@ require "rack"
 module Triboelectric
   class Static
     def initialize(app, options = {})
+      Uploader.upload(options)
       @app    = app
       @static = Rack::Static.new(@app, options)
       @bucket = options[:bucket]
