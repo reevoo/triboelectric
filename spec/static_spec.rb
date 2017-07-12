@@ -276,7 +276,6 @@ RSpec.describe Triboelectric::Static do
       @mocks[path]
     end
 
-    def put_object(*_args)
-    end
+    def put_object(*_args); end
   end
 end

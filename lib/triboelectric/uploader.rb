@@ -30,11 +30,11 @@ module Triboelectric
       urls = @urls.values if @urls.is_a?(Hash)
 
       urls.map do |url|
-        if @root
-          url = File.join(@root, url)
-        else
-          url = url.sub(/^\//, "")
-        end
+        url = if @root
+                File.join(@root, url)
+              else
+                url.sub(/^\//, "")
+              end
 
         if File.file? url
           url
