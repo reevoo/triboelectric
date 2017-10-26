@@ -14,7 +14,12 @@ RSpec.describe Triboelectric::Uploader do
         }
       end
 
-      specify { expect(subject.files).to eq %w(spec/fixture/index.html spec/fixture/assets/foo.css) }
+      specify do
+        expect(subject.files).to contain_exactly(
+          "spec/fixture/index.html",
+          "spec/fixture/assets/foo.css",
+        )
+      end
     end
 
     context "with routes and a root" do
@@ -28,7 +33,12 @@ RSpec.describe Triboelectric::Uploader do
         }
       end
 
-      specify { expect(subject.files).to eq %w(spec/fixture/index.html spec/fixture/assets/foo.css) }
+      specify do
+        expect(subject.files).to contain_exactly(
+          "spec/fixture/index.html",
+          "spec/fixture/assets/foo.css",
+        )
+      end
     end
 
     context "with a list" do
@@ -39,7 +49,11 @@ RSpec.describe Triboelectric::Uploader do
       end
 
       specify do
-        expect(subject.files).to eq %w(spec/fixture/assets/foo.css spec/fixture/baz.html spec/fixture/index.html)
+        expect(subject.files).to contain_exactly(
+          "spec/fixture/assets/foo.css",
+          "spec/fixture/baz.html",
+          "spec/fixture/index.html",
+        )
       end
     end
 
@@ -51,7 +65,9 @@ RSpec.describe Triboelectric::Uploader do
         }
       end
 
-      specify { expect(subject.files).to eq %w(spec/fixture/assets/foo.css) }
+      specify do
+        expect(subject.files).to contain_exactly("spec/fixture/assets/foo.css")
+      end
     end
   end
 
